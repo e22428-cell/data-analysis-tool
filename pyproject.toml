@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data-analysis"
+version = "0.1.0"
+description = "Data analysis utilities for data inspection and visualization."
+requires-python = ">=3.8"
+dependencies = [
+  "pandas>=1.0",
+  "numpy>=1.20",
+  "scikit-learn>=1.0",
+  "scipy>=1.7",
+  "plotly>=5.0",
+  "ipython>=7.0",
+  "google-colab>=1.0"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
