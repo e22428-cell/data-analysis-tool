@@ -171,57 +171,32 @@ class DataInspector:
     # MISSING VALUES
     ##################################################
 
-    def handle_missing_values(
-            self,
-            strategy="mean",
-            constant_value=None):
-        """
-        Strategies:
-        mean
-        median
-        mode
-        constant
-        """
-
+    def handle_missing_values(self, strategy="median", constant_value=None):
         if self.df is None:
             return
-
+    
         for col in self.df.columns:
-
+    
             if self.df[col].isna().sum() == 0:
                 continue
-
+    
             if strategy == "mean":
-
-                if pd.api.types.is_numeric_dtype(
-                        self.df[col]):
-                    self.df[col].fillna(
-                        self.df[col].mean(),
-                        inplace=True
-                    )
-
+                if pd.api.types.is_numeric_dtype(self.df[col]):
+                    self.df[col] = self.df[col].fillna(self.df[col].mean())
+    
             elif strategy == "median":
-
-                if pd.api.types.is_numeric_dtype(
-                        self.df[col]):
-                    self.df[col].fillna(
-                        self.df[col].median(),
-                        inplace=True
-                    )
-
+                if pd.api.types.is_numeric_dtype(self.df[col]):
+                    self.df[col] = self.df[col].fillna(self.df[col].median())
+                else:
+                    self.df[col] = self.df[col].fillna(self.df[col].mode()[0])
+    
             elif strategy == "mode":
-
-                self.df[col].fillna(
-                    self.df[col].mode()[0],
-                    inplace=True
-                )
-
+                self.df[col] = self.df[col].fillna(self.df[col].mode()[0])
+    
             elif strategy == "constant":
-
-                self.df[col].fillna(
-                    constant_value,
-                    inplace=True
-                )
+                self.df[col] = self.df[col].fillna(constant_value)
+    
+        print("Missing values handled successfully.")
 
     ##################################################
     # DUPLICATES
